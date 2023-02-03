@@ -32,15 +32,15 @@ addresses3 = soup3.select('.address')
 prices3 = soup3.select('.price')
 features3 = soup3.select('.feature > .value')
 
-three_page_links = links + links2 + links3
-three_page_images = images + images2 + images3
-three_page_addresses = addresses + addresses2 + addresses3
-three_page_prices = prices + prices2 + prices3
-three_pages_features = features + features2 + features3
+expanded_links = links + links2 + links3
+expanded_images = images + images2 + images3
+expanded_addresses = addresses + addresses2 + addresses3
+expanded_prices = prices + prices2 + prices3
+expanded_features = features + features2 + features3
 
 
-def create_custom_hn(links, images, addresses, prices, features):
-    hn = []
+def create_custom_property_dic(links, images, addresses, prices, features):
+    property_dic = []
     for i, item in enumerate(links):
         image = images[i].get('src', None)
         href = item.get('href', None)
@@ -50,13 +50,13 @@ def create_custom_hn(links, images, addresses, prices, features):
         if features[0] != 'Pets':
             beds = features[0].getText()
             baths = features[1].getText()
-            cars = features[2].getText()
+            car_spots = features[2].getText()
             features = features[3:]
 
-        hn.append({'image': image, 'link': href,
-                  'address': address, 'price': price, 'beds': beds, 'baths': baths, 'cars': cars})
-    return hn
+        property_dic.append({'image': image, 'link': href,
+                             'address': address, 'price': price, 'beds': beds, 'baths': baths, 'cars': car_spots})
+    return property_dic
 
 
-pprint.pprint(create_custom_hn(three_page_links, three_page_images,
-              three_page_addresses, three_page_prices, three_pages_features))
+pprint.pprint(create_custom_property_dic(expanded_links, expanded_images,
+              expanded_addresses, expanded_prices, expanded_features))
